@@ -15,11 +15,12 @@ def show():
     pygame.init()
     pygame.display.set_caption("My Board")
     exit = False
-    show_map()
+    start , end , grid = show_map()
     while not exit:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit = True
+    return start , end , grid
 
 def show_map():
     screen = pygame.display.set_mode((540, 540))
@@ -126,7 +127,5 @@ def show_map():
         elif ev.type == pygame.KEYDOWN:
             if ev.key == pygame.K_SPACE:
                 loop = False
-    print("ok")
-    return pos_s , pos_e , grid
 
-show()
+    return pos_s , pos_e , grid
