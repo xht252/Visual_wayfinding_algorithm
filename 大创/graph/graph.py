@@ -97,6 +97,8 @@ def show_map():
     grid[pos_s[1]][pos_s[0]] = 0x3f3f3f3f3f
     grid[pos_e[1]][pos_e[0]] = 0x3f3f3f3f3f
 
+    pos_s[0] , pos_s[1] = pos_s[1] , pos_s[0]
+    pos_e[0], pos_e[1] = pos_e[1], pos_e[0]
     def mousePress(x):
         t = x[0]
         w = x[1]
@@ -125,5 +127,6 @@ def show_map():
             if ev.key == pygame.K_SPACE:
                 loop = False
 
+    return pos_s , pos_e , grid
 
 show()
