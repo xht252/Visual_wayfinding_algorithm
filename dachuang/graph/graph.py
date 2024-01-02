@@ -61,10 +61,12 @@ def show_map():
     var = IntVar()
 
     d = {0 : "深度优先遍历dfs" , 1 : "广度优先遍历bfs" , 2 : "迪杰斯特拉算法" , 3 : "A星算法"}
+
+    idx = 0
     def get_idx():
-        global idx
-        idx = var.get()
-        print(idx)
+        nonlocal idx
+        idx1 = var.get()
+        idx = idx1
 
 
     for x, y in d.items():
@@ -106,7 +108,6 @@ def show_map():
         # 判断在第几个格子
         g1 = t // (540 // cols)
         g2 = w // (540 // rows)
-        print(g2 , g1)
         # 设置障碍
         grid[g2][g1] = 0x3f3f3f3f
         if [g2 , g1] != pos_s and [g2 , g1] != pos_e:
@@ -128,4 +129,4 @@ def show_map():
             if ev.key == pygame.K_SPACE:
                 loop = False
 
-    return pos_s , pos_e , grid
+    return pos_s , pos_e , idx , grid
