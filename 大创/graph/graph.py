@@ -126,7 +126,7 @@ def show_map():
         elif ev.type == pygame.KEYDOWN:
             if ev.key == pygame.K_SPACE:
                 loop = False
-
+    print("ok")
     return pos_s , pos_e , grid
 
 show()
