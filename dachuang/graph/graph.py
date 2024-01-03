@@ -97,8 +97,6 @@ def show_map():
 
     show_pos(blue , screen , pos_s[1] , pos_s[0] , 0)
     show_pos(blue , screen , pos_e[1] , pos_e[0] , 0)
-    grid[pos_s[1]][pos_s[0]] = mod
-    grid[pos_e[1]][pos_e[0]] = mod
 
     pos_s[0] , pos_s[1] = pos_s[1] , pos_s[0]
     pos_e[0], pos_e[1] = pos_e[1], pos_e[0]
