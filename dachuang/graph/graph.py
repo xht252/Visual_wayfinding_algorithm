@@ -1,5 +1,4 @@
 from tkinter import Tk, Label, Entry, IntVar, ttk, Radiobutton, Button
-
 import pygame
 # 以25x25的方格矩阵为例讨论
 
@@ -23,6 +22,7 @@ def show():
 
 
 def show_map():
+    mod = 10 ** 9
     screen = pygame.display.set_mode((540, 540))
     cols , rows = 27 , 27
 
@@ -97,8 +97,8 @@ def show_map():
 
     show_pos(blue , screen , pos_s[1] , pos_s[0] , 0)
     show_pos(blue , screen , pos_e[1] , pos_e[0] , 0)
-    grid[pos_s[1]][pos_s[0]] = 0x3f3f3f3f3f
-    grid[pos_e[1]][pos_e[0]] = 0x3f3f3f3f3f
+    grid[pos_s[1]][pos_s[0]] = mod
+    grid[pos_e[1]][pos_e[0]] = mod
 
     pos_s[0] , pos_s[1] = pos_s[1] , pos_s[0]
     pos_e[0], pos_e[1] = pos_e[1], pos_e[0]
@@ -109,7 +109,7 @@ def show_map():
         g1 = t // (540 // cols)
         g2 = w // (540 // rows)
         # 设置障碍
-        grid[g2][g1] = 0x3f3f3f3f
+        grid[g2][g1] = mod
         if [g2 , g1] != pos_s and [g2 , g1] != pos_e:
             show_pos(grey, screen , g1 , g2 , 0)
 
@@ -129,4 +129,4 @@ def show_map():
             if ev.key == pygame.K_SPACE:
                 loop = False
 
-    return pos_s , pos_e , idx , grid
+    return pos_s , pos_e , idx , grid , screen
