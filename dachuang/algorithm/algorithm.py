@@ -1,12 +1,15 @@
+from time import sleep
+import threading
+import pygame
+
 import graph.graph as gra
 
 def dfs(start , end , g , screen):
-    mod = 10 ** 9
     st = [[False for i in range(40)] for j in range(40)]
     ans = []
     path = []
-    dx = [0 , 0 , 1 , -1]
-    dy = [1 , -1 , 0 , 0]
+    dx = [1 , -1 , 0 , 0]
+    dy = [0 , 0 , 1 , -1]
     # 四个方向
     def fun(g , x , y):
         nonlocal path, ans
@@ -18,10 +21,12 @@ def dfs(start , end , g , screen):
             return
         st[x][y] = True
         path.append((x , y))
-        if [y , x] == end:
+        if [x , y] == end:
             ans.append(path.copy())
 
         gra.show_pos((255, 0, 255), screen, y, x, 0)
+        pygame.time.delay(5)
+
         for i in range(4):
             tx = x + dx[i]
             ty = y + dy[i]
@@ -29,7 +34,7 @@ def dfs(start , end , g , screen):
         st[x][y] = False
         path.pop()
 
-    fun(g , start[1] , start[0])
+    fun(g , start[0] , start[1])
     path = []
     for i in ans:
         if not len(path):
@@ -37,9 +42,42 @@ def dfs(start , end , g , screen):
         else:
             if len(path) > len(i):
                 path = i
-    print(path)
+
     for i in path:
         gra.show_pos((0 , 255 , 127) , screen , i[1] , i[0] , 0)
+        pygame.time.delay(5)
+    gra.show_pos((0, 0, 255), screen, start[1], start[0], 0)
+    gra.show_pos((0, 0, 255), screen, end[1], end[0], 0)
 
-    gra.show_pos((0, 0, 255), screen, start[0], start[1], 0)
-    gra.show_pos((0, 0, 255), screen, end[0], end[1], 0)
+
+def bfs(start, end, g, screen):
+    queue = [(start[0], start[1])]
+    st = [[False for i in range(40)] for j in range(40)]
+    dx = [0, 0, 1, -1]
+    dy = [1, -1, 0, 0]
+    path = []
+    print(start , end)
+    while len(queue):
+        x, y = queue[0]
+        queue.pop(0)
+
+        gra.show_pos((255, 0, 255), screen, y, x, 0)
+
+        st[x][y] = True
+        path.append((x, y))
+        if [x , y] == end:
+            break
+
+        for i in range(4):
+            tx = x + dx[i]
+            ty = y + dy[i]
+
+            if tx <= 0 or ty <= 0 or tx > 25 or ty > 25:
+                continue
+            if g[tx][ty] != 0 or st[tx][ty]:
+                continue
+            queue.append((tx, ty))
+
+
+    for i in path:
+        gra.show_pos((0, 255, 127), screen, i[1], i[0], 0)

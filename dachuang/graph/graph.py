@@ -23,7 +23,8 @@ def show():
 
 def show_map():
     mod = 10 ** 9
-    screen = pygame.display.set_mode((540, 540))
+    screen = pygame.display.set_mode((540, 540), pygame.HWSURFACE)
+    screen.set_alpha(None)
     cols , rows = 27 , 27
 
     # 定义颜色
@@ -48,6 +49,7 @@ def show_map():
         show_pos(grey, screen, i, cols - 1, 0)
         show_pos(grey, screen, 0, i, 0)
         show_pos(grey, screen, cols - 1, i, 0)
+
 
     # 输入起始和终止点
     global window
@@ -97,9 +99,9 @@ def show_map():
 
     show_pos(blue , screen , pos_s[1] , pos_s[0] , 0)
     show_pos(blue , screen , pos_e[1] , pos_e[0] , 0)
-
-    pos_s[0] , pos_s[1] = pos_s[1] , pos_s[0]
-    pos_e[0], pos_e[1] = pos_e[1], pos_e[0]
+    pygame.display.flip()
+    # pos_s[0] , pos_s[1] = pos_s[1] , pos_s[0]
+    # pos_e[0], pos_e[1] = pos_e[1], pos_e[0]
     def mousePress(x):
         t = x[0]
         w = x[1]
@@ -127,4 +129,5 @@ def show_map():
             if ev.key == pygame.K_SPACE:
                 loop = False
 
+    pygame.display.flip()
     return pos_s , pos_e , idx , grid , screen
